@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class DemoService {
+public class SpeakService {
     public void speak(String who, String what) {
         log.info("{} says: {}.", who, what);
 

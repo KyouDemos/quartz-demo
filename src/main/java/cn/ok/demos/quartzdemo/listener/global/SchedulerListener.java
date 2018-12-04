@@ -17,32 +17,21 @@ public class SchedulerListener extends SchedulerListenerSupport {
 
     @Override
     public void jobScheduled(Trigger trigger) {
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
-        log.trace("Job({}.{}), Trigger({}.{}) was scheduled.", jobGroup, jobName, triggerGroup, triggerName);
+        log.trace("Job({}.{}), Trigger({}.{}) was scheduled.", trigger.getKey().getGroup(),
+                trigger.getKey().getName(), trigger.getJobKey().getGroup(),
+                trigger.getJobKey().getName());
     }
 
     @Override
     public void jobUnscheduled(TriggerKey triggerKey) {
-        String triggerGroup = triggerKey.getGroup();
-        String triggerName = triggerKey.getName();
-
-        log.trace("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
+        log.trace("Trigger({}.{}) was Unscheduled.", triggerKey.getGroup(), triggerKey.getName());
     }
 
     @Override
     public void triggerFinalized(Trigger trigger) {
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
-        log.trace("rigger ({}.{}) was Finalized.", jobGroup, jobName, triggerGroup, triggerName);
+        log.trace("rigger ({}.{}) was Finalized.", trigger.getKey().getGroup(),
+                trigger.getKey().getName(), trigger.getJobKey().getGroup(),
+                trigger.getJobKey().getName());
     }
 
     @Override

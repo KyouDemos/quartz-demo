@@ -20,27 +20,19 @@ public class QuartzTriggerListener implements TriggerListener {
 
     @Override
     public void triggerFired(Trigger trigger, JobExecutionContext jobExecutionContext) {
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
-        log.trace("Trigger({}.{}) to fire Job({}.{}).", triggerGroup, triggerName, jobGroup, jobName);
+        log.trace("Trigger({}.{}) to fire Job({}.{}).", trigger.getKey().getGroup(),
+                trigger.getKey().getName(), trigger.getJobKey().getGroup(),
+                trigger.getJobKey().getName());
     }
 
     @Override
     public boolean vetoJobExecution(Trigger trigger, JobExecutionContext jobExecutionContext) {
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
         String vetoJobGroup = "SpringBootJobs";
         // 默认此处不拦截
         if (!vetoJobGroup.equals(trigger.getKey().getGroup())) {
-            log.info("Trigger({}.{}) was vetoed to fire Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
+            log.info("Trigger({}.{}) was vetoed to fire Job({}.{})!", trigger.getKey().getGroup(),
+                    trigger.getKey().getName(), trigger.getJobKey().getGroup(),
+                    trigger.getJobKey().getName());
             return true;
         }
         return false;
@@ -48,26 +40,16 @@ public class QuartzTriggerListener implements TriggerListener {
 
     @Override
     public void triggerMisfired(Trigger trigger) {
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
-        log.info("Trigger({}.{}) was Misfired Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
+        log.info("Trigger({}.{}) was Misfired Job({}.{})!", trigger.getKey().getGroup(),
+                trigger.getKey().getName(), trigger.getJobKey().getGroup(),
+                trigger.getJobKey().getName());
     }
 
     @Override
     public void triggerComplete(Trigger trigger, JobExecutionContext jobExecutionContext,
                                 Trigger.CompletedExecutionInstruction completedExecution) {
-
-        String triggerGroup = trigger.getKey().getGroup();
-        String triggerName = trigger.getKey().getName();
-
-        String jobGroup = trigger.getJobKey().getGroup();
-        String jobName = trigger.getJobKey().getName();
-
-        log.trace("Trigger({}.{}) was fired Job({}.{}), And completedExecution: {}", triggerGroup, triggerName,
-                jobGroup, jobName, completedExecution);
+        log.trace("Trigger({}.{}) was fired Job({}.{}), And completedExecution: {}",
+                trigger.getKey().getGroup(), trigger.getKey().getName(),
+                trigger.getJobKey().getGroup(), trigger.getJobKey().getName(), completedExecution);
     }
 }

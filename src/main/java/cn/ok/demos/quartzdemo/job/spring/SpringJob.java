@@ -2,7 +2,7 @@ package cn.ok.demos.quartzdemo.job.spring;
 
 import cn.ok.demos.quartzdemo.job.JobStyle;
 import cn.ok.demos.quartzdemo.listener.spring.SpringJobListener;
-import cn.ok.demos.quartzdemo.service.DemoService;
+import cn.ok.demos.quartzdemo.service.SpeakService;
 import cn.ok.demos.quartzdemo.util.JobUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,7 +29,7 @@ public class SpringJob extends QuartzJobBean implements JobStyle {
     private static final String JOB_NAME = SpringJob.class.getSimpleName();
 
     @Autowired
-    DemoService demoService;
+    SpeakService speakService;
 
     @Autowired
     JobUtil jobUtil;
@@ -47,7 +47,7 @@ public class SpringJob extends QuartzJobBean implements JobStyle {
      */
     @Override
     protected void executeInternal(JobExecutionContext context) {
-        demoService.speak(who, what);
+        speakService.speak(who, what);
     }
 
     /**
