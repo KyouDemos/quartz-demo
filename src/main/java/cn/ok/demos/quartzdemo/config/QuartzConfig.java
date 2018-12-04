@@ -1,8 +1,8 @@
 package cn.ok.demos.quartzdemo.config;
 
 import cn.ok.demos.quartzdemo.listener.global.JobListener;
+import cn.ok.demos.quartzdemo.listener.global.QuartzTriggerListener;
 import cn.ok.demos.quartzdemo.listener.global.SchedulerListener;
-import cn.ok.demos.quartzdemo.listener.global.TriggerListener;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -54,18 +54,18 @@ public class QuartzConfig {
      *
      * @param scheduler         调度器
      * @param jobListener       任务统一监听器
-     * @param triggerListener   触发器统一监听器
+     * @param quartzTriggerListener   触发器统一监听器
      * @param schedulerListener 调度统一监听器
      * @return 调度器
      * @throws SchedulerException SchedulerException
      */
     @Bean
-    public Scheduler scheduler(Scheduler scheduler, JobListener jobListener, TriggerListener triggerListener, SchedulerListener schedulerListener) throws
+    public Scheduler scheduler(Scheduler scheduler, JobListener jobListener, QuartzTriggerListener quartzTriggerListener, SchedulerListener schedulerListener) throws
             SchedulerException {
         // 注入统一设置的任务监听器,默认对所有任务生效
         scheduler.getListenerManager().addJobListener(jobListener);
         // 注入统一设置的触发器的监听器,默认对所有触发器生效.
-        scheduler.getListenerManager().addTriggerListener(triggerListener);
+        scheduler.getListenerManager().addTriggerListener(quartzTriggerListener);
         // 注入统一设置的调度监听器,默认对所有触发器生效.
         scheduler.getListenerManager().addSchedulerListener(schedulerListener);
 

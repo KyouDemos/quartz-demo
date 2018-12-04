@@ -24,7 +24,7 @@ public class SpringJobListener extends JobListenerSupport {
         String jobName = context.getJobDetail().getKey().getName();
 
         if (jobException == null) {
-            log.debug("Job({}.{}) was executed successfully", jobGroup, jobName);
+            log.trace("Job({}.{}) was executed successfully", jobGroup, jobName);
         } else {
             log.error("Job({}.{}) was executed failed with exception: {}", jobGroup, jobName, jobException);
         }

@@ -14,7 +14,7 @@ public class DemoService {
 
         try {
             // Job类添加 @DisallowConcurrentExecution 注解后,不可并发执行.
-            Thread.sleep(6 * 1000);
+            Thread.sleep(3 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

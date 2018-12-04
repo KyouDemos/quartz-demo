@@ -3,11 +3,11 @@ package cn.ok.demos.quartzdemo.job.spring;
 import cn.ok.demos.quartzdemo.job.JobStyle;
 import cn.ok.demos.quartzdemo.listener.spring.SpringJobListener;
 import cn.ok.demos.quartzdemo.service.DemoService;
+import cn.ok.demos.quartzdemo.util.JobUtil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
-import org.quartz.impl.matchers.KeyMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +30,9 @@ public class SpringJob extends QuartzJobBean implements JobStyle {
 
     @Autowired
     DemoService demoService;
+
+    @Autowired
+    JobUtil jobUtil;
 
     private String who;
     private String what;
@@ -70,7 +73,7 @@ public class SpringJob extends QuartzJobBean implements JobStyle {
     @Override
     public Trigger getJobTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                .withIntervalInSeconds(10).repeatForever();
+                .withIntervalInSeconds(2).repeatForever();
 
         JobDataMap dataMap = new JobDataMap();
         dataMap.put("who", "Wang Da Na");
@@ -94,30 +97,7 @@ public class SpringJob extends QuartzJobBean implements JobStyle {
     @ConditionalOnProperty(value = {"Quartz.Jobs.SpringJob.Enable"})
     public SpringJob executeThisJob(Scheduler scheduler, SpringJobListener springJobListener) {
 
-        JobDetail jobDetail = getJobDetail();
-        Trigger jobTrigger = getJobTrigger();
-
-        JobKey jobKey = jobDetail.getKey();
-        TriggerKey triggerKey = jobTrigger.getKey();
-
-        try {
-            // 此处设定仅对当前 Job(JobKey 作为条件) 进行监听
-            scheduler.getListenerManager().addJobListener(springJobListener, KeyMatcher.keyEquals(jobKey));
-            if (scheduler.checkExists(jobKey)) {
-                // 如果数据库中已经存在调度任务,则替换 Job 内容但是 Trigger 触发的频率以数据库的为准.
-                jobTrigger = scheduler.getTrigger(triggerKey);
-                scheduler.unscheduleJob(triggerKey);
-                scheduler.scheduleJob(jobDetail, jobTrigger);
-            } else {
-                // 没有则新增调度任务
-                scheduler.scheduleJob(jobDetail, jobTrigger);
-            }
-
-        } catch (SchedulerException e) {
-            log.error("Execute Job({}.{}) Failed!", JOB_GROUP, this.getClass().getSimpleName());
-            e.printStackTrace();
-        }
-
+        jobUtil.executeThisJob(scheduler, getJobDetail(), getJobTrigger(), springJobListener);
         return new SpringJob();
     }
 }

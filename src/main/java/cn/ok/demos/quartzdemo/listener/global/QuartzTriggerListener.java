@@ -3,6 +3,7 @@ package cn.ok.demos.quartzdemo.listener.global;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.quartz.Trigger;
+import org.quartz.TriggerListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class TriggerListener implements org.quartz.TriggerListener {
+public class QuartzTriggerListener implements TriggerListener {
 
     @Override
     public String getName() {
@@ -25,7 +26,7 @@ public class TriggerListener implements org.quartz.TriggerListener {
         String jobGroup = trigger.getJobKey().getGroup();
         String jobName = trigger.getJobKey().getName();
 
-        log.debug("Trigger({}.{}) to fire Job({}.{}).", triggerGroup, triggerName, jobGroup, jobName);
+        log.trace("Trigger({}.{}) to fire Job({}.{}).", triggerGroup, triggerName, jobGroup, jobName);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class TriggerListener implements org.quartz.TriggerListener {
         String vetoJobGroup = "SpringBootJobs";
         // 默认此处不拦截
         if (!vetoJobGroup.equals(trigger.getKey().getGroup())) {
-            log.warn("Trigger({}.{}) was vetoed to fire Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
+            log.info("Trigger({}.{}) was vetoed to fire Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
             return true;
         }
         return false;
@@ -53,7 +54,7 @@ public class TriggerListener implements org.quartz.TriggerListener {
         String jobGroup = trigger.getJobKey().getGroup();
         String jobName = trigger.getJobKey().getName();
 
-        log.warn("Trigger({}.{}) was Misfired Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
+        log.info("Trigger({}.{}) was Misfired Job({}.{})!", triggerGroup, triggerName, jobGroup, jobName);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class TriggerListener implements org.quartz.TriggerListener {
         String jobGroup = trigger.getJobKey().getGroup();
         String jobName = trigger.getJobKey().getName();
 
-        log.debug("Trigger({}.{}) was fired Job({}.{}), And completedExecution: {}", triggerGroup, triggerName,
+        log.trace("Trigger({}.{}) was fired Job({}.{}), And completedExecution: {}", triggerGroup, triggerName,
                 jobGroup, jobName, completedExecution);
     }
 }

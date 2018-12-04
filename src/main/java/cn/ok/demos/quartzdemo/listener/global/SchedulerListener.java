@@ -23,7 +23,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = trigger.getJobKey().getGroup();
         String jobName = trigger.getJobKey().getName();
 
-        log.debug("Job({}.{}), Trigger({}.{}) was scheduled.", jobGroup, jobName, triggerGroup, triggerName);
+        log.trace("Job({}.{}), Trigger({}.{}) was scheduled.", jobGroup, jobName, triggerGroup, triggerName);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String triggerGroup = triggerKey.getGroup();
         String triggerName = triggerKey.getName();
 
-        log.debug("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
+        log.trace("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = trigger.getJobKey().getGroup();
         String jobName = trigger.getJobKey().getName();
 
-        log.debug("rigger ({}.{}) was Finalized.", jobGroup, jobName, triggerGroup, triggerName);
+        log.trace("rigger ({}.{}) was Finalized.", jobGroup, jobName, triggerGroup, triggerName);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String triggerGroup = triggerKey.getGroup();
         String triggerName = triggerKey.getName();
 
-        log.debug("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
+        log.trace("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String triggerGroup = triggerKey.getGroup();
         String triggerName = triggerKey.getName();
 
-        log.debug("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
+        log.trace("Trigger({}.{}) was Unscheduled.", triggerGroup, triggerName);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = jobDetail.getKey().getGroup();
         String jobName = jobDetail.getKey().getName();
 
-        log.debug("Job({}.{}) was Added.", jobGroup, jobName);
+        log.trace("Job({}.{}) was Added.", jobGroup, jobName);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = jobKey.getGroup();
         String jobName = jobKey.getName();
 
-        log.debug("Job({}.{}) was Added.", jobGroup, jobName);
+        log.trace("Job({}.{}) was Added.", jobGroup, jobName);
     }
 
     @Override
@@ -92,7 +92,7 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = jobKey.getGroup();
         String jobName = jobKey.getName();
 
-        log.debug("Job({}.{}) was Added.", jobGroup, jobName);
+        log.trace("Job({}.{}) was Added.", jobGroup, jobName);
     }
 
     @Override
@@ -105,41 +105,41 @@ public class SchedulerListener extends SchedulerListenerSupport {
         String jobGroup = jobKey.getGroup();
         String jobName = jobKey.getName();
 
-        log.debug("Job({}.{}) was Added.", jobGroup, jobName);
+        log.trace("Job({}.{}) was Added.", jobGroup, jobName);
     }
 
     @Override
     public void jobsResumed(String s) {
-        log.debug("jobsResumed, param s: {}.", s);
+        log.trace("jobsResumed, param s: {}.", s);
     }
 
     @Override
     public void schedulerInStandbyMode() {
-        log.debug("schedulerInStandbyMode.");
+        log.trace("schedulerInStandbyMode.");
     }
 
     @Override
     public void schedulerStarted() {
-        log.debug("schedulerStarted.");
+        log.trace("schedulerStarted.");
     }
 
     @Override
     public void schedulerStarting() {
-        log.debug("schedulerStarting.");
+        log.trace("schedulerStarting.");
     }
 
     @Override
     public void schedulerShutdown() {
-        log.debug("schedulerShutdown.");
+        log.trace("schedulerShutdown.");
     }
 
     @Override
     public void schedulerShuttingdown() {
-        log.debug("schedulerShuttingDown.");
+        log.trace("schedulerShuttingDown.");
     }
 
     @Override
     public void schedulingDataCleared() {
-        log.debug("schedulingDataCleared.");
+        log.trace("schedulingDataCleared.");
     }
 }
